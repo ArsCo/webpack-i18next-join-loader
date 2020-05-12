@@ -101,9 +101,9 @@ Options:
 * **`validation.singleRoot`** - if `true` then loader will validate that each translation file has only single root key;
 * **`validation.uniqueRootPerOutputFile`** - if `true` then loader will validate that each root key is used only in one of merging file.
 
-# Example
+## Example
 
-## Source files
+### Source files
 
 File `A/locale/en.locale.json`
 ```json
@@ -199,7 +199,7 @@ const B = () => {
 export default B
 ```
 
-## Output files
+### Output files
 File `public/locale/en.locale.json`
 ```json
 {
