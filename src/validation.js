@@ -1,13 +1,27 @@
+const { formatRoots } = require('./utils')
 
 const mergedRoots = {}
 
-function validateSingleRoot(json) {
+function getRootsCount(json) {
   const roots = Object.keys(json)
-  const rootsCount = roots.length
+  return roots.length
+}
+
+function validateSingleRoot(path, json) {
+  const rootsCount = getRootsCount(json)
   if (rootsCount > 1) {
+    const roots = Object.keys(json)
     throw new Error(
-      `There ars ${rootsCount} root keys (more than one) for '${this.resourcePath}': '${roots}'.
+      `There are ${rootsCount} root keys (more than one) for '${path}': '${formatRoots(roots)}'.
       Set 'validation.singleRoot = false' or remove root keys.`,
+    )
+  }
+}
+
+function validateNoRoot(path, json) {
+  if (getRootsCount(json) === 0) {
+    throw new Error(
+      `There are no root keys for '${path}'. Set 'validation.noRoots = false' or add root keys.`,
     )
   }
 }
@@ -23,11 +37,16 @@ function validateUniqueRootPerOutputFile(fileName, json) {
   mergedRoots[fileName] = [...fileNameMegredRoots, ...rootKeys]
 }
 
-function validate(validationOptions, fileName, json) {
-  if (validationOptions.singleRoot) {
-    validateSingleRoot(json)
+function validate(validationOptions, path, fileName, json) {
+  const { singleRoot, noRoots, uniqueRootPerOutputFile } = validationOptions
+
+  if (singleRoot) {
+    validateSingleRoot(path, json)
   }
-  if (validationOptions.uniqueRootPerOutputFile) {
+  if (noRoots) {
+    validateNoRoot(path, json)
+  }
+  if (uniqueRootPerOutputFile) {
     validateUniqueRootPerOutputFile(fileName, fileName)
   }
 }

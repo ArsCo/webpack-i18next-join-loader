@@ -13,6 +13,9 @@ const schema = {
         type: 'array',
       }],
     },
+    recursiveMerge: {
+      type: 'boolean',
+    },
     validation: {
       type: 'object',
       properties: {
@@ -21,19 +24,29 @@ const schema = {
         },
       },
     },
-    recursiveMerge: {
-      type: 'boolean',
-    },
+    debug: {
+      enable: {
+        type: 'boolean',
+      },
+      showRoots: {
+        type: 'boolean',
+      },
+    }
   },
 }
 
 const defaultOptions = {
   outputDir: 'locale/',
+  recursiveMerge: false,
   validation: {
     singleRoot: true,
     uniqueRootPerOutputFile: true,
+    noRoots: false,
   },
-  recursiveMerge: false,
+  debug: {
+    enable: false,
+    showRoots: false,
+  },
 }
 
 function getMergedOptions(obj) {

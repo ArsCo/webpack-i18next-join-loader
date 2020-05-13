@@ -80,11 +80,18 @@ const I18NextJoinLoader = require('webpack-i18next-join-loader')
         use: [{
           loader: I18NextJoinLoader.loader(),
           options: {
-            outputDir: 'locale/', // [optional] Default: 'locale/'
+            // [optional] Default: 'locale/'
+            // array can be used too, for example: ['res', 'locale']
+            outputDir: 'locale/',
             recursiveMerge: false, // [optional] Default: false
             validation: {
               singleRoot: true, // [optional] Default: true
               uniqueRootPerOutputFile: true // [optional] Default: true
+              noRoots: false, // [optional] Default: false
+            },
+            debug: {
+              enable: false, // [optional] Default false
+              showRoots: false, // [optional] Default false
             },
           },
         }],
@@ -100,6 +107,9 @@ Options:
 * **`recursiveMerge`** - if `true` then files will be merged recursively;
 * **`validation.singleRoot`** - if `true` then loader will validate that each translation file has only single root key;
 * **`validation.uniqueRootPerOutputFile`** - if `true` then loader will validate that each root key is used only in one of merging file.
+* **`validation.noRoots`** - if `true` then loader will validate that each translation file has one or more roots;
+* **`debug.enable`** - if `true` then debug is enabled, otherwise all debug options will be disabled;
+* **`debug.showRoots`** - if `true` then loader will print root keys for each processing translation file.
 
 ## Example
 

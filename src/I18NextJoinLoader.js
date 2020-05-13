@@ -3,6 +3,7 @@ const merge = require('merge')
 const config = require('./config')
 const { validate } = require('./validation')
 const { getFileName, getFilePath } = require('./file')
+const { formatRoots } = require('./utils')
 
 const results = {}
 
@@ -28,7 +29,16 @@ const I18NextJoinLoader = function loader(source) {
   const fileName = getFileName(this.resourcePath)
   const fileJson = JSON.parse(source)
 
-  validate(options.validation, fileName, fileJson)
+  const { debug } = options
+  if (debug.enable) {
+    if (debug.showRoots) {
+      console.debug(`Roots [ ${formatRoots(Object.keys(fileJson))} ] of '${this.resourcePath}'`)
+    }
+  }
+
+  validate(options.validation, this.resourcePath, fileName, fileJson)
+
+
 
   const mergeFunction = getMergeFunction(options)
   const currentValue = results[fileName] || {}
