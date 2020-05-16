@@ -47,7 +47,7 @@ function validate(validationOptions, path, fileName, json) {
     validateNoRoot(path, json)
   }
   if (uniqueRootPerOutputFile) {
-    validateUniqueRootPerOutputFile(fileName, fileName)
+    validateUniqueRootPerOutputFile(fileName, json)
   }
 }
 
