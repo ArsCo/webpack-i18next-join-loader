@@ -1,6 +1,6 @@
 {
   "name": "webpack-i18next-join-loader",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Webpack i18next translation files join loader",
   "main": "index.js",
   "scripts": {
